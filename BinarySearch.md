@@ -5,9 +5,10 @@
     if the target is in this array, return the index
     
     if not, return -1
+    
+   Java
 
 ```java
-    // Java
     public class solution {
         public int binarySearch(int[] array, int target) {
             if (array == null || array.length == 0) {
@@ -36,6 +37,8 @@
     // TC = O(log n)
     // SC = O(1)
 ```
+
+   Python
 
 ``` python
     class Solution(object):
