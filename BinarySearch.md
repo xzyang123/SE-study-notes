@@ -1,3 +1,7 @@
+### Principles of Binary Search
+1. search space must decrease after each interation
+2. target should not be roled out accidentally, be careful of Left and Right
+
 ### 1. Classic Binary Search
 
     Example: array[7] 1 2 3 4 5 6 7 whether target = 4 is in this array or not.
@@ -57,7 +61,40 @@
                     
 ```
 
+### 2. Binary Search a 2D matrix
 
+2D matrix, sorted on each row, first element of next row is larger(or equal) to the last element of previous row
+now giving a target number, return true or false to indicate if the target is in the matrix
+
+```java
+    class Solution {
+        public boolean searchMatrix(int[][] matrix, int target) {
+            if (matrix.length == 0 || matrix[0].length == 0) {
+                return false;
+            }
+            int col = matrix[0].length;
+            int row = matrix.length;
+            int left = 0;
+            int right = row * col - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                // notice how to convert mid to the row and col index
+                if (matrix[mid / col][mid % col] == target) {
+                    return true;
+                } else if (matrix[mid / col][mid % col] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            return false;
+        }
+}
+TC = O(log m*n)
+SC = O(1)
+```
+
+### 3. Closet Element to Target
 
 
 
