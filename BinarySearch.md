@@ -96,6 +96,50 @@ SC = O(1)
 
 ### 3. Closet Element to Target
 
+How to find an element in the array that is closest to the target number?
+
+For example: target = 4
+            int a[5] = {1, 2, 3,(4) 8, 9}
+            return the index of the closest element
+            
+```java
+    public class Solution {
+        public int closest(int[] array, int target) {
+            if (array == null || array.length == 0) {
+                return -1;
+            }
+            int left = 0;
+            int right = array.length - 1;
+            // here the loop stop condition is 'left < right -1'
+            // 'left < right' or 'left <= right' are wrong
+            while (left < right - 1) {
+                int mid = left + (right - left) / 2;
+                if (array[mid] == target) {
+                    return mid;
+                } else if (array[mid] > target) {
+                // here 'right' and 'left' equal to 'mid'
+                // not 'mid - 1' or 'mid + 1'
+                // because we need to check if array[mid] is the closest element
+                // the target should not be roled out!!!
+                    right = mid;
+                } else {
+                    left = mid;
+                }
+            }
+            if (Math.abs(array[left] - target) < Math.abs(array[right] - target)) {
+                return left;
+            } else {
+                return right;
+            }
+        }
+    }
+```
+
+### 4. First Target
+
+How to return the index of the first occurrence of an element, for example 5?
+
+A[7] = {4, 5, 5, 5, 5, 5, 5}
 
 
 
