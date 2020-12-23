@@ -141,13 +141,94 @@ How to return the index of the first occurrence of an element, for example 5?
 
 A[7] = {4, 5, 5, 5, 5, 5, 5}
 
+if target is not in the array, return -1
+
+otherwise, return the index
+
+```java
+    public class Solution {
+        public int firstOccur(int[] array, int target) {
+            if (array == null || array.length == 0) {
+                return -1;
+            }
+            int left = 0;
+            int right = array.length - 1;
+            while (left < right - 1) {
+                int mid = left + (right - left) / 2;
+                // since we need to find the first target
+                // we should narrow the search space by moving right pointer
+                if (array[mid] == target) {
+                    right = mid;
+                } else if (array[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+            if (array[left] == target) {
+                return left;
+            }
+            if (array[right] == target) {
+                return right;
+            }
+            return -1;
+        }
+    }
+```
 
 
+### 5. Last Target
+
+The code is almost the same.
+
+Here are the modifications:
+
+    if (array[mid] == target) {
+        left = mid;
+    }
+    
+out of the loop, check right first
+    
+    if (array[right] == target) {
+        return right;
+    }
+    if (array[left] == target) {
+        return left;
+    }
 
 
+### 6. Closest K elements
 
 
+### 7. Smallest element is larger than target
 
+input[n] = { 1 3 4 5 8 9 } target = 7, return index of 8
+
+```java
+    public class Solution{
+        public int smallestElementLargerThanTarget(int[] array, int target) {
+            if (array == null || array.length == 0) {
+                return -1;
+            }
+            int left = 0;
+            int right = array.length - 1;
+            while (left < right - 1) {
+                if (array[mid] <= target) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            if (array[left] > target) {
+                return left;
+            }
+            if (array[right] > target) {
+                return right;
+            }
+            return -1;
+        }
+    }
+```
 
 
 
