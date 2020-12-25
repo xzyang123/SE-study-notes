@@ -230,6 +230,48 @@ input[n] = { 1 3 4 5 8 9 } target = 7, return index of 8
     }
 ```
 
+### 8. K-th smallest in two sorted Arrays
+A[] = {2 6 7 10 13}
+B[] = {1 3 4 13 20 29}
+k = 5
+output = 6
+
+依然使用binary search的思想：每次搜索空间减半
+1. 因为是在两个array里面找第k位最小的值
+   所以我们可以分别在a和b里搜索前k/2个数字
+   
+
+```java
+    public class Solution {
+      public int kth(int[] a, int[] b, int k) {
+        return helper(a, 0, b, 0, k);
+        } 
+      private int helper(int[] a, int aleft, int[] b, int bleft, int k) {
+        if (aleft >= a.length) {
+          return b[bleft + k - 1];
+        }
+        if (bleft >= b.length) {
+          return a[aleft + k - 1];
+        }
+        if (k == 1) {
+          return Math.min(a[aleft], b[bleft]);
+        }
+
+        int amid = aleft + k/2 - 1;
+        int bmid = bleft + k/2 - 1;
+
+        int aval = amid >= a.length ? Integer.MAX_VALUE : a[amid];
+        int bval = bmid >= b.length ? Integer.MAX_VALUE : b[bmid];
+
+        if (aval > bval) {
+          return helper(a, aleft, b, bmid + 1, k - k/2);
+        } else {
+          return helper(a, amid + 1, b, bleft, k - k/2);
+        }
+      }
+    }
+```
+
 
 
 
