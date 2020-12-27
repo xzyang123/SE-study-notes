@@ -198,6 +198,40 @@ out of the loop, check right first
 
 
 ### 6. Closest K elements
+given a target, a non-negative K and a sorted array in ascending order.
+find the k closest numbers in the array
+
+```java
+    public class KClosest{
+        public int[] class kClosest(int[] array, int target, int k) {
+            int[] result = new int[k];
+            
+            int left = 0;
+            int right = array.length - 1;
+            // find the right and left pointers that closest to the target
+            while (left < right - 1) {
+                int mid = left + (right - left) / 2;
+                if (array[mid] <= target) {
+                    left = mid;
+                } else {
+                    right = mid;
+                }
+            }
+            // only when right pointer is out of bound
+            // and the value of left pointer is smaller than right pointer
+            // we move left pointer
+            for (int i = 0; i < k; i++) {
+                if (right >= array.length || left >= 0 && Math.abs(array[left] - target) 
+                <= Math.abs(array[right] - target)) {
+                    result[i] = array[left--];
+                } else {
+                    result[i] = array[right++];
+                }
+            }
+            return result;
+        }
+    }
+```
 
 
 ### 7. Smallest element is larger than target
@@ -238,7 +272,11 @@ output = 6
 
 依然使用binary search的思想：每次搜索空间减半
 1. 因为是在两个array里面找第k位最小的值
-   所以我们可以分别在a和b里搜索前k/2个数字
+   所以我们可以分别在a和b里比较两个array对应的array[k/2-1]的大小
+   然后把小的那个array的前k/2个数字舍去
+2. 因为题目要求是找第K个最小的值，所以一定不在比完大小后
+   小的那个array的k/2里
+3. 根据这样的思路就可以完成搜索
    
 
 ```java
