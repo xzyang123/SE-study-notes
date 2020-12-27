@@ -310,6 +310,40 @@ output = 6
     }
 ```
 
+### 9. binary search with unknown size
+
+```java
+    public int search(Dictionary dict, int target) {
+    // 首先找到target对应的范围
+    // 然后在这个小范围内进行binary search
+        if (dict == null) {
+            return -1;
+        }
+
+        int left = 0;
+        int right = 1;
+        while (dict.get(right) != null && dict.get(right) < target) {
+            left= right;
+            right = 2 * right;
+        }
+    return binary(dict, target, left, right);
+  }
+
+  public int binary(Dictionary dict, int target, int left, int right) {
+    while (left <= right) { 
+      int mid = left + (right - left) / 2;
+
+      if (dict.get(mid) == null || dict.get(mid) > target){
+        right = mid - 1;
+      } else if (dict.get(mid) < target) {
+        left = mid + 1;
+      } else {
+        return mid;
+      }
+    }
+    return -1;
+  }
+```
 
 
 
