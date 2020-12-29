@@ -2,6 +2,11 @@
 1. search space must decrease after each interation
 2. target should not be roled out accidentally, be careful of Left and Right
 
+#### binary search需要注意的地方：
+    1. 时刻注意会不会指向null，在进行left和right移动的判断时，首先判断left和right会不会指向null
+        例如 search unknown size的问题（查看代码注释）
+  
+
 ### 1. Classic Binary Search
 
     Example: array[7] 1 2 3 4 5 6 7 whether target = 4 is in this array or not.
@@ -322,6 +327,7 @@ output = 6
 
         int left = 0;
         int right = 1;
+        // 这里要先判断get(right)会不会为null，再判断值的大小！！！
         while (dict.get(right) != null && dict.get(right) < target) {
             left= right;
             right = 2 * right;
@@ -332,7 +338,7 @@ output = 6
   public int binary(Dictionary dict, int target, int left, int right) {
     while (left <= right) { 
       int mid = left + (right - left) / 2;
-
+    // 这里要先判断get(mid)会不会指向null，再和target做比较！！！
       if (dict.get(mid) == null || dict.get(mid) > target){
         right = mid - 1;
       } else if (dict.get(mid) < target) {
